@@ -1,0 +1,49 @@
+spring:
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+        jpa:
+            show-sql: true
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: 189268396989-d4kht7makjmblrc1c24i05olknm9l9dc.apps.googleusercontent.com
+                        client-secret: 4CCdG75G09-Ch4lUiKbF7lOu
+                        scope: openid,profile,email
+                        client-name: app-02
+                    democlient:
+                        client-id: client-id-02
+                        client-secret: secret
+                        client-name: demo-oauth2-clinet
+                        scope: user_info,read
+                        redirect-uri: https://localhost:8443/myapp/login/oauth2/code/democlient
+                        client-authentication-method: basic
+                        authorization-grant-type: authorization_code
+                        provider: authserver-provider
+                provider:
+                    authserver-provider:
+                        token-uri: http://localhost:8081/auth/oauth/token
+                        authorization-uri: http://localhost:8081/auth/oauth/authorize
+                        user-info-uri: http://localhost:8081/auth/userinfo
+                        user-name-attribute: username
+
+logging:
+    level:
+        org.springframework.security: debug
+
+server:
+    port: 8443
+    servlet:
+        context-path: /myapp
+        session:
+            cookie:
+                path: /myapp
+    ssl:
+        key-store-password: tomcat
+        key-store: classpath:mykeystore.p12
+        key-store-type: PKCS12
+        key-alias: tomcat
+
